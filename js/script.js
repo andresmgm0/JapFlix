@@ -27,13 +27,13 @@ function stars(rating) {
 }
 
 function showDetails(movie){
-  console.log(movie);
+  //console.log(movie);
   const prev = document.getElementById("movieDetails");
   if (prev) prev.remove();
   
   const container = document.createElement("div");
   container.innerHTML = `
-    <div class="offcanvas offcanvas-top show" tabindex="-1" id="movieDetails">
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="movieDetails">
       <div class="offcanvas-header bg-dark text-white">
         <h5 class="offcanvas-title">${movie.title}</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -54,8 +54,7 @@ function showDetails(movie){
           </ul>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
   document.body.appendChild(container);
   
   const offcanvas = document.getElementById("movieDetails");
@@ -67,26 +66,26 @@ function filterMovies(search){
     let result = [];
     const container = document.getElementById("lista");
     container.innerHTML = "";
-    if(search){
-        result = movies.filter(movie => 
-          movie.title.toLowerCase().includes(search) ||
-          movie.tagline.toLowerCase().includes(search) ||
-          movie.overview.toLowerCase().includes(search) ||
-          movie.genres.map(g => g.name.toLowerCase()).join(", ").includes(search)
-        );
+
+    if(search !== ""){
+      result = movies.filter(movie => 
+        movie.title.toLowerCase().includes(search) ||
+        movie.tagline.toLowerCase().includes(search) ||
+        movie.overview.toLowerCase().includes(search) ||
+        movie.genres.map(g => g.name.toLowerCase()).join(", ").includes(search)
+      );
     };
 
     result.forEach(movie => {
-        container.innerHTML += 
-        `<li class="list-group-item bg-dark text-light">
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="mb-1">${movie.title}</h5>
-                <p class="mb-1 text-muted">${movie.tagline || ""}</p>
-              </div>
-              <div>${stars(movie.vote_average)}</div>
-            </div>
-          </li>`
+      container.innerHTML += `<li class="list-group-item bg-dark text-light">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="mb-1">${movie.title}</h5>
+            <p class="mb-1 text-muted">${movie.tagline}</p>
+          </div>
+          <div>${stars(movie.vote_average)}</div>
+        </div>
+      </li>`;
     });
 
     let items = container.querySelectorAll("li");
@@ -96,6 +95,6 @@ function filterMovies(search){
 };
 
 document.getElementById("btnBuscar").addEventListener("click", () => {
-    const search= document.getElementById("inputBuscar").value.trim().toLowerCase();
+    const search = document.getElementById("inputBuscar").value.trim().toLowerCase();
     filterMovies(search);
 });
