@@ -13,23 +13,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function stars(rating) {
   const stars = rating / 2;
-  let html = "";
+  let content = "";
   for (let i = 1; i <= 5; i++) {
     if(stars >= i){
-      html += `<span class="fa fa-star checked"></span>`
+      content += `<span class="fa fa-star checked"></span>`;
     } else if(stars >= i - 0.5){
-      html += `<span class="fa fa-star-half-full checked"></span>`
+      content += `<span class="fa fa-star-half-full checked"></span>`;
     } else{
-      html += `<span class="fa fa-star"></span>`
+      content += `<span class="fa fa-star"></span>`;
     }
   }
-  return html;
+  return content;
 }
 
 function showDetails(movie){
   //console.log(movie);
   const prev = document.getElementById("movieDetails");
-  if (prev) prev.remove();
+  if (prev) {
+    prev.remove();
+  };
   
   const container = document.createElement("div");
   container.innerHTML = `
